@@ -1,18 +1,16 @@
 import React, { useContext } from 'react';
+import { History } from 'history';
 
 import { FirebaseContext } from './Firebase';
 import { FirebaseAuth, signInWithRedirect, signOut } from './FirebaseAuth';
 
-const Content: React.FC = () => {
-  const { userId, userName } = useContext(FirebaseContext);
-  return (
-    <div>
-      {userName} ({userId}) is signedIn
-    </div>
-  );
+import { Router } from "./Router";
+
+const Content: React.FC<{ history: History }> = ({ history }) => {
+  return <Router history={history} />
 };
 
-const App: React.FC = () => {
+const App: React.FC<{ history: History }> = ({ history }) => {
   const NotSignedIn = React.useCallback(() => {
     return <button onClick={() => signInWithRedirect()}>signIn</button>
   }, []);
@@ -22,7 +20,7 @@ const App: React.FC = () => {
 
   return (
     <FirebaseAuth NotSignedIn={NotSignedIn} Loading={Loading}>
-      <Content />
+      <Content history={history} />
       <button onClick={signOut}>sign out</button>
     </FirebaseAuth>
   );
