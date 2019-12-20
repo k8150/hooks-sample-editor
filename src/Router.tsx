@@ -29,7 +29,7 @@ const useEditorRouting = (pathname: string) => {
     const content = useMemo(() => {
         if (pathname === "/") {
             return <Index />;
-        } else if (uuidv4.isUuid(pathname.slice(1))) {
+        } else if (uuidv4.is(pathname.slice(1))) {
             return <Edit textId={pathname.slice(1)} />;
         } else {
             return <div>4040 not found</div>;
